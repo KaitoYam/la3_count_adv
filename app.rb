@@ -9,25 +9,41 @@ before do
   end
 end
 
-get '/' do
-  'こんばんはー'
-end
+# get '/' do
+#   @counter = Count.all
+#   logger.info(@counter)
+#   erb :index
+# end
 
 get '/count' do
-  @number = Count.first.number
+  @counter = Count.all
   erb :index
 end
 
-post '/plus' do
-  count = Count.first
+post '/plus/:id' do
+  count = Count.find(params[:id])
   count.number = count.number + 1
   count.save
   redirect '/count'
 end
 
-post '/minus' do
-  count = Count.first
+post '/minus/:id' do
+  count = Count.find(params[:id])
   count.number = count.number - 1
   count.save
+  redirect '/count'
+end
+
+post '/clear/:id' do
+  count = Count.find(params[:id])
+  count.number = 0
+  count.save
+  redirect '/count'
+end
+
+post '/add_counter' do
+  Count.create(
+    number: 0
+  )
   redirect '/count'
 end

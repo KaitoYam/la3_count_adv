@@ -9,11 +9,11 @@ before do
   end
 end
 
-# get '/' do
-#   @counter = Count.all
-#   logger.info(@counter)
-#   erb :index
-# end
+get '/' do
+  @counter = Count.all
+  logger.info(@counter)
+  erb :index
+end
 
 get '/count' do
   @counter = Count.all
